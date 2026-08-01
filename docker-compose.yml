@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  nids-app:
+    build: .
+    container_name: nids_security_system
+    network_mode: "host" # Allows live host packet sniffing if needed
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./nids.db:/app/nids.db
+      - ./ml_models:/app/ml_models
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
